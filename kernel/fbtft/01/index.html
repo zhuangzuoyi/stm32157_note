@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>什么是fbtft&在STM32MP15x中使用fbtft - STM32MP15x</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/django.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-27795084-5', 'mkdocs.org');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../..">STM32MP15x</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">开始使用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../user/env/">开发环境</a>
+</li>
+                                    
+<li >
+    <a href="../../../user/download_fw_sd/">通过USB烧录系统到SD卡</a>
+</li>
+                                    
+<li >
+    <a href="../../../user/sd/">解析SD卡</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">内核相关 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../start/">获取内核源码及编译</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">fbtft</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">什么是fbtft&在STM32MP15x中使用fbtft</a>
+</li>
+            
+<li >
+    <a href="../02/">使用ILI9341</a>
+</li>
+            
+<li >
+    <a href="../03/">在用户空间中使用framebuffer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">uboot <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../uboot/uboot_start/">环境</a>
+</li>
+                                    
+<li >
+    <a href="../../../uboot/bison_not_found/">bison_not_found</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../app/u8g2/u8g2/">u8g2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../about/">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../../start/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../02/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#fbtft">什么是fbtft</a></li>
+        <li class="main "><a href="#fbtftstm32mp15x">fbtft在STM32MP15X中</a></li>
+        <li class="main "><a href="#_1">如何使用</a></li>
+        <li class="main "><a href="#_2">修改源码</a></li>
+        <li class="main "><a href="#_3">测试</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h4 id="fbtft">什么是fbtft<a class="headerlink" href="#fbtft" title="Permanent link"></a></h4>
+<p>fbtft在github中的介绍是“ <strong>Linux Framebuffer drivers for small TFT LCD display modules</strong>，翻译过来就是支持小型TFT LCD显示器的Linux FrameBuffer驱动。也就是专门为小型TFT LCD所写的Framebuffer驱动。</p>
+<p>github地址为：<a href="notro/fbtft">notro/fbtft</a></p>
+<p>wiki地址为：<a href="notro/wiki">notro/wiki</a></p>
+<p>从fbtft的github上看，fbtft不在更新到github了，迁移到了Linux kernel staging tree。在<a href="https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/tree/drivers/staging/fbtft?h=staging-testing">https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging.git/tree/drivers/staging/fbtft?h=staging-testing</a>中看到fbtft所支持的设备有：</p>
+<p><img alt="" src="support.png" /></p>
+<h4 id="fbtftstm32mp15x">fbtft在STM32MP15X中<a class="headerlink" href="#fbtftstm32mp15x" title="Permanent link"></a></h4>
+<p>在STM32MP1X的4.19内核源码中，fbtft源码在内核根目录的：<strong>drivers\staging\fbtft</strong>。</p>
+<p><img alt="" src="source_dir.png" /></p>
+<h4 id="_1">如何使用<a class="headerlink" href="#_1" title="Permanent link"></a></h4>
+<p>我手上有st7735r跟Ili9341的屏，看了下fbtft里面的源码正好有st7735r跟Ili9341驱动，先试下st7735r的屏，</p>
+<p>在文件<strong>drivers\staging\fbtft\fb_st7735r.c</strong>中：</p>
+<pre><code>static struct fbtft_display display = {
+    .regwidth = 8,
+    .width = 128,
+    .height = 160,
+    .init_sequence = default_init_sequence,
+    .gamma_num = 2,
+    .gamma_len = 16,
+    .gamma = DEFAULT_GAMMA,
+    .fbtftops = {
+        .set_addr_win = set_addr_win,
+        .set_var = set_var,
+        .set_gamma = set_gamma,
+    },
+};
+
+FBTFT_REGISTER_DRIVER(DRVNAME, &quot;sitronix,st7735r&quot;, &amp;display);
+</code></pre>
+
+<p><strong>FBTFT_REGISTER_DRIVER</strong>展开后如下：</p>
+<pre><code>#define FBTFT_REGISTER_DRIVER(_name, _compatible, _display)                \
+                                       \
+static int fbtft_driver_probe_spi(struct spi_device *spi)                  \
+{                                                                          \
+    return fbtft_probe_common(_display, spi, NULL);                    \
+}                                                                          \
+                                       \
+static int fbtft_driver_remove_spi(struct spi_device *spi)                 \
+{                                                                          \
+    struct fb_info *info = spi_get_drvdata(spi);                       \
+                                       \
+    return fbtft_remove_common(&amp;spi-&gt;dev, info);                       \
+}                                                                          \
+                                       \
+static int fbtft_driver_probe_pdev(struct platform_device *pdev)           \
+{                                                                          \
+    return fbtft_probe_common(_display, NULL, pdev);                   \
+}                                                                          \
+                                       \
+static int fbtft_driver_remove_pdev(struct platform_device *pdev)          \
+{                                                                          \
+    struct fb_info *info = platform_get_drvdata(pdev);                 \
+                                       \
+    return fbtft_remove_common(&amp;pdev-&gt;dev, info);                      \
+}                                                                          \
+                                       \
+static const struct of_device_id dt_ids[] = {                              \
+    { .compatible = _compatible },                                     \
+    {},                                                                \
+};                                                                         \
+                                       \
+MODULE_DEVICE_TABLE(of, dt_ids);                                           \
+</code></pre>
+
+<p>有这么条语句：<strong>MODULE_DEVICE_TABLE(of, dt_ids); </strong>。也就是说要使用该设备，需要修改设备树。</p>
+<h4 id="_2">修改源码<a class="headerlink" href="#_2" title="Permanent link"></a></h4>
+<p>首先在make menuconfig中把fbtft加上：</p>
+<p><img alt="" src="config.png" /></p>
+<p>1、修改设备树</p>
+<p>由于我的屏是接在STM32MP157c的SPI5，所以在设备树中spi5下面添加屏的设备数,CS脚接到STM32MP157C的GPIOF 6，DC脚接到GPIOF 3脚，RESET脚接到GPIOD 13，设备数修改为如下：</p>
+<pre><code>&amp;spi5 {
+    pinctrl-names = &quot;default&quot;, &quot;sleep&quot;;
+    pinctrl-0 = &lt;&amp;spi5_pins_a&gt;;
+    pinctrl-1 = &lt;&amp;spi5_sleep_pins_a&gt;;
+    cs-gpios = &lt;&amp;gpiof 6 GPIO_ACTIVE_HIGH&gt;;
+    status = &quot;okay&quot;;
+
+    st7735r@0{
+    compatible = &quot;jianda,jd-t18003-t01&quot;, &quot;sitronix,st7735r&quot;;
+    reg = &lt;0&gt;;
+    spi-max-frequency = &lt;32000000&gt;;
+    dc-gpios = &lt;&amp;gpiof 3 GPIO_ACTIVE_HIGH&gt;;
+    reset-gpios = &lt;&amp;gpiod 13 GPIO_ACTIVE_HIGH&gt;;
+    rotation = &lt;270&gt;;
+    backlight = &amp;backlight;
+    };
+};
+</code></pre>
+
+<p>编译并把设备树跟内核更新到板子上，启动，看屏没什么反应，<strong>/dev</strong>下也没有<strong>fb</strong>设备，查看spi相关信息：</p>
+<pre><code>root@stm32mp1:~# dmesg | grep &quot;spi&quot;
+[    1.543185] spi_stm32 44009000.spi: 8 x 8-bit fifo size
+[    1.543206] spi_stm32 44009000.spi: 16-bit maximum data frame
+[    1.543670] spi_stm32 44009000.spi: registered master spi0
+[    1.543900] spi spi0.0: stm32_spi_setup: set gpio86 output high
+[    1.543943] spi spi0.0: setup mode 0, 8 bits/w, 32000000 Hz max --&gt; 0
+[    1.544232] spi_stm32 44009000.spi: registered child spi0.0
+[    1.544245] spi_stm32 44009000.spi: driver initialized
+[    2.097755] fb_st7735r spi0.0: buswidth is not set
+[    2.102334] fb_st7735r: probe of spi0.0 failed with error -22
+</code></pre>
+
+<p>有错误，上网查了下资料，觉得可能是没有添加buswidth，在设备树种把buswitch加上：</p>
+<pre><code>&amp;spi5 {
+    pinctrl-names = &quot;default&quot;, &quot;sleep&quot;;
+    pinctrl-0 = &lt;&amp;spi5_pins_a&gt;;
+    pinctrl-1 = &lt;&amp;spi5_sleep_pins_a&gt;;
+    cs-gpios = &lt;&amp;gpiof 6 GPIO_ACTIVE_HIGH&gt;;
+    status = &quot;okay&quot;;
+
+    st7735r@0{
+    compatible = &quot;jianda,jd-t18003-t01&quot;, &quot;sitronix,st7735r&quot;;
+    reg = &lt;0&gt;;
+    buswidth = &lt;8&gt;;
+    spi-max-frequency = &lt;32000000&gt;;
+    dc-gpios = &lt;&amp;gpiof 3 GPIO_ACTIVE_HIGH&gt;;
+    reset-gpios = &lt;&amp;gpiod 13 GPIO_ACTIVE_HIGH&gt;;
+    rotation = &lt;270&gt;;
+    backlight = &amp;backlight;
+    };
+};
+</code></pre>
+
+<p>重新更新板子上的设备树，上电，可以看到屏幕有白色变黑色，应该是可以了，在<strong>/dev</strong>下可以看到多了个fb设备:</p>
+<p><img alt="" src="found_fb0.png" /></p>
+<h4 id="_3">测试<a class="headerlink" href="#_3" title="Permanent link"></a></h4>
+<p>在屏上显示随机数：</p>
+<pre><code>cat /dev/urandom &gt; /dev/fb0
+</code></pre>
+
+<p><img alt="" src="st7735_ra.jpg" /></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2014 <a href="">Halin</a>, Maintained by the <a href="www.halin.xyz">Halin</a>.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

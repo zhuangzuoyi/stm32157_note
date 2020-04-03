@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>在用户空间中使用framebuffer - STM32MP15x</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/django.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-27795084-5', 'mkdocs.org');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../..">STM32MP15x</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">开始使用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../user/env/">开发环境</a>
+</li>
+                                    
+<li >
+    <a href="../../../user/download_fw_sd/">通过USB烧录系统到SD卡</a>
+</li>
+                                    
+<li >
+    <a href="../../../user/sd/">解析SD卡</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">内核相关 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../start/">获取内核源码及编译</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">fbtft</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../01/">什么是fbtft&在STM32MP15x中使用fbtft</a>
+</li>
+            
+<li >
+    <a href="../02/">使用ILI9341</a>
+</li>
+            
+<li class="active">
+    <a href="./">在用户空间中使用framebuffer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">uboot <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../uboot/uboot_start/">环境</a>
+</li>
+                                    
+<li >
+    <a href="../../../uboot/bison_not_found/">bison_not_found</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../app/u8g2/u8g2/">u8g2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../about/">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../02/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../../uboot/uboot_start/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#_1">获取参数</a></li>
+        <li class="main "><a href="#_2">填充颜色</a></li>
+        <li class="main "><a href="#_3">显示图片</a></li>
+        <li class="main "><a href="#bmp">获取BMP图片信息</a></li>
+        <li class="main "><a href="#_4">把图片显示到屏上</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>fbtft使用的是framebuffer框架，这种框架将显示设备抽象为帧缓冲区，对framebuffer设备（/dev/fbx(0、1、2..)）进行相关操作可以反应到LCD上。</p>
+<p>现在尝试下在用户空间用C来操作LCD设备。</p>
+<h4 id="_1">获取参数<a class="headerlink" href="#_1" title="Permanent link"></a></h4>
+<p>要对framebuffer进行操作，首先要知道所操作设备的相关参数，Linux在用户空间提供了两个跟framebuffer参数相关的结构体（在文件fb.h中）:</p>
+<ul>
+<li>fb_fix_screeninfo</li>
+</ul>
+<pre><code>struct fb_fix_screeninfo {
+    char id[16];            /* identification string eg &quot;TT Builtin&quot; */
+    unsigned long smem_start;   /* Start of frame buffer mem */
+                    /* (physical address) */
+    __u32 smem_len;         /* Length of frame buffer mem */
+    __u32 type;         /* see FB_TYPE_*        */
+    __u32 type_aux;         /* Interleave for interleaved Planes */
+    __u32 visual;           /* see FB_VISUAL_*      */ 
+    __u16 xpanstep;         /* zero if no hardware panning  */
+    __u16 ypanstep;         /* zero if no hardware panning  */
+    __u16 ywrapstep;        /* zero if no hardware ywrap    */
+    __u32 line_length;      /* length of a line in bytes    */
+    unsigned long mmio_start;   /* Start of Memory Mapped I/O   */
+                    /* (physical address) */
+    __u32 mmio_len;         /* Length of Memory Mapped I/O  */
+    __u32 accel;            /* Indicate to driver which */
+                    /*  specific chip/card we have  */
+    __u16 capabilities;     /* see FB_CAP_*         */
+    __u16 reserved[2];      /* Reserved for future compatibility */
+};
+</code></pre>
+
+<ul>
+<li>fb_var_screeninfo</li>
+</ul>
+<pre><code>struct fb_var_screeninfo {
+    __u32 xres;         /* visible resolution       */
+    __u32 yres;
+    __u32 xres_virtual;     /* virtual resolution       */
+    __u32 yres_virtual;
+    __u32 xoffset;          /* offset from virtual to visible */
+    __u32 yoffset;          /* resolution           */
+
+    __u32 bits_per_pixel;       /* guess what           */
+    __u32 grayscale;        /* 0 = color, 1 = grayscale,    */
+                    /* &gt;1 = FOURCC          */
+    struct fb_bitfield red;     /* bitfield in fb mem if true color, */
+    struct fb_bitfield green;   /* else only length is significant */
+    struct fb_bitfield blue;
+    struct fb_bitfield transp;  /* transparency         */  
+
+    __u32 nonstd;           /* != 0 Non standard pixel format */
+
+    __u32 activate;         /* see FB_ACTIVATE_*        */
+
+    __u32 height;           /* height of picture in mm    */
+    __u32 width;            /* width of picture in mm     */
+
+    __u32 accel_flags;      /* (OBSOLETE) see fb_info.flags */
+
+    /* Timing: All values in pixclocks, except pixclock (of course) */
+    __u32 pixclock;         /* pixel clock in ps (pico seconds) */
+    __u32 left_margin;      /* time from sync to picture    */
+    __u32 right_margin;     /* time from picture to sync    */
+    __u32 upper_margin;     /* time from sync to picture    */
+    __u32 lower_margin;
+    __u32 hsync_len;        /* length of horizontal sync    */
+    __u32 vsync_len;        /* length of vertical sync  */
+    __u32 sync;         /* see FB_SYNC_*        */
+    __u32 vmode;            /* see FB_VMODE_*       */
+    __u32 rotate;           /* angle we rotate counter clockwise */
+    __u32 colorspace;       /* colorspace for FOURCC-based modes */
+    __u32 reserved[4];      /* Reserved for future compatibility */
+};
+</code></pre>
+
+<p>这两个参数都可以通过ioctl获得，首先定义3个变量，一个是打开的fb设备的句柄，剩下2个分别是fb_var_screeninfo、fb_fix_screeninfo：</p>
+<pre><code>int fbfd = 0;
+struct fb_var_screeninfo vinfo;
+struct fb_fix_screeninfo finfo;
+</code></pre>
+
+<p>打开fb设备：</p>
+<pre><code>    fbfd = open(&quot;/dev/fb0&quot;, O_RDWR);
+    if (!fbfd)
+    {
+        printf(&quot;Error: cannot open framebuffer device.\n&quot;);
+        exit(1);
+    }
+</code></pre>
+
+<p>然后分别获取两个结构体，并在main函数中调用：</p>
+<pre><code>    if (ioctl(fbfd, FBIOGET_FSCREENINFO, &amp;finfo))
+    {
+        printf(&quot;Error reading fixed information.\n&quot;);
+        exit(2);
+    }
+
+
+
+    if (ioctl(fbfd, FBIOGET_VSCREENINFO, &amp;vinfo))
+    {
+        printf(&quot;Error: reading variable information.\n&quot;);
+        exit(3);
+    }
+</code></pre>
+
+<p>创建两个函数分别输出这两个结构体元素：</p>
+<pre><code>void show_fb_fix_info(struct fb_fix_screeninfo info)
+{
+    printf(&quot;fb's fix msg:\n&quot;);
+    printf(&quot;\tid is:%s\n&quot;,info.id);
+    printf(&quot;\tsmem_start is:%d\n&quot;,info.smem_start);
+    printf(&quot;\tsmem_len is:%d\n&quot;,info.smem_len);
+    printf(&quot;\ttype_aux is:%d\n&quot;,info.type_aux);
+    printf(&quot;\tvisual is:%d\n&quot;,info.visual);
+    printf(&quot;\txpanstep is:%d\n&quot;,info.xpanstep);
+    printf(&quot;\typanstep is:%d\n&quot;,info.ypanstep);
+    printf(&quot;\tywrapstep is:%d\n&quot;,info.ywrapstep);
+    printf(&quot;\tline_length is:%d\n&quot;,info.line_length);
+    printf(&quot;\tmmio_start is:%d\n&quot;,info.mmio_start);
+}
+
+void show_fb_var_info(struct fb_var_screeninfo info)
+{
+    printf(&quot;fb's var msg:\n&quot;);
+    printf(&quot;\txres is:%d\n&quot;,info.xres);
+    printf(&quot;\tyres is:%d\n&quot;,info.yres);
+    printf(&quot;\txres_virtual is:%d\n&quot;,info.xres_virtual);
+    printf(&quot;\tyres_virtual is:%d\n&quot;,info.yres_virtual);
+    printf(&quot;\txoffset is:%d\n&quot;,info.xoffset);
+    printf(&quot;\tyoffset is:%d\n&quot;,info.yoffset);
+    printf(&quot;\tbits_per_pixel is:%d\n&quot;,info.bits_per_pixel);
+    printf(&quot;\tgrayscale is:%d\n&quot;,info.grayscale);
+    printf(&quot;\tnonstd is:%d\n&quot;,info.nonstd);
+    printf(&quot;\tactivate is:%d\n&quot;,info.activate);
+    printf(&quot;\theight is:%d\n&quot;,info.height);
+    printf(&quot;\twidth is:%d\n&quot;,info.width);
+    printf(&quot;\taccel_flags is:%d\n&quot;,info.accel_flags);
+    printf(&quot;\tpixclock is:%d\n&quot;,info.pixclock);
+    printf(&quot;\tleft_margin is:%d\n&quot;,info.left_margin);
+    printf(&quot;\tright_margin is:%d\n&quot;,info.right_margin);
+    printf(&quot;\tupper_margin is:%d\n&quot;,info.upper_margin);
+    printf(&quot;\tlower_margin is:%d\n&quot;,info.lower_margin);
+    printf(&quot;\thsync_len is:%d\n&quot;,info.hsync_len);
+    printf(&quot;\tvsync_len is:%d\n&quot;,info.vsync_len);
+    printf(&quot;\tsync is:%d\n&quot;,info.sync);
+    printf(&quot;\tvmode is:%d\n&quot;,info.vmode);
+    printf(&quot;\trotate is:%d\n&quot;,info.rotate);
+    printf(&quot;\tcolorspace is:%d\n&quot;,info.colorspace);
+}
+</code></pre>
+
+<p>编译、拷贝到目标板上，运行结果如下：
+<img alt="" src="show_fb_msg.png" /></p>
+<p>从上面运行结果看，成功的获取了屏的一系列参数。</p>
+<p><strong>详细代码</strong>：<a href="https://github.com/zhuangzuoyi/learning-STM32MP15X/blob/master/user_space/framebuffer/show_fb_msg.c">framebuffer/show_fb_msg.c</a></p>
+<h4 id="_2">填充颜色<a class="headerlink" href="#_2" title="Permanent link"></a></h4>
+<p>​   现在试下给整个屏填充颜色，要填充屏的话，需要几个参数，一个是framebuffer所需内存的大小，一个是屏的像素的个数，还有就是颜色深度。</p>
+<p>​   要对framebuffer进行操作首先需要做的是通过mmap进行地址映射，这里就要用到framebuffer所需内存的大小，framebuffer所需内存的大小可以从fb_fix_screeninfo获得，如下：</p>
+<pre><code>static char *fbp = 0;
+
+fbp = (char *)mmap(0, finfo.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
+if ((int)fbp == -1)
+{
+    printf(&quot;Error: failed to map framebuffer device to memory.\n&quot;);
+    exit(4);
+}
+</code></pre>
+
+<p>​   这里申请一段finfo.smem_len大小的连续内存，对这段内存进行操作就会反应到屏上了。</p>
+<p>​   对整个屏进行填充就是操作屏上的所有像素（也可以说遍历所有像素），这里就需要知道屏幕的像素的个数，这个参数可以从之前获取到的fb_var_screeninfo中的参数中的xres，yres。从fb.h中的注释翻译过来，xres，yres是可见分辨率，我理解为可见区域，应该就是对应屏幕显示区域的大小了。</p>
+<pre><code>int screensize = 0;
+
+screensize = xres * yres;
+</code></pre>
+
+<p>​   还有一个很关键的参数颜色深度（bpp：bits per pixel），也就是表示一个像素颜色所需的位数（bit），一般来说有这么几种：1位，8位，16位，24位，32位。，比如1位的屏，也就是单色屏，用1bit来表示颜色，如果是白色单色屏的话，0表示黑色，1表示白色。24bit屏，就是用24bit（3字节）表示颜色，也就是RGB888，R、G、B分别占8bit。</p>
+<p>​   从上面获取到的参数知道，该屏是16bit的，也就是RGB565，用两个字节表示。应为之前用mmap申请的内存是char指针，用该指针来操作像素的话不方便，索性就把char型转成short型，如下：</p>
+<pre><code>short *fb_s;
+fb_s = (short *)fbp;
+</code></pre>
+
+<p>定义4个宏，分别表示红色、绿色、蓝色、黑色，</p>
+<pre><code>#define RED 0xf800
+#define GREEN 0x07e0
+#define BLUE 0x001f
+#define BLACK  0x0000
+</code></pre>
+
+<p>创建一个写framebuffer内存的函数，如下：</p>
+<pre><code>void fill_screen(short *fb_men,short color,int pix_size)
+{   
+    for(int i=0;i&lt;pix_size;i++)
+    {
+        *fb_men = color;
+        fb_men ++;
+    }
+}
+</code></pre>
+
+<p>第一个参数是所要操作的framebuffer对应的内存，第二个是所要填充的颜色，第三个是屏幕的尺寸，然后就可以对屏幕进行填充了，如下：</p>
+<pre><code>    printf(&quot;Fill red\n&quot;);
+    fill_screen(fb_s,RED,screensize/2);
+    sleep(1);
+    printf(&quot;Fill green\n&quot;);
+    // fb_s = (short *)fbp;
+    fill_screen(fb_s,GREEN,screensize/2);
+    sleep(1);
+    printf(&quot;Fill blue\n&quot;);
+    // fb_s = (short *)fbp;
+    fill_screen(fb_s,BLUE,screensize/2);
+    sleep(1);   
+    fill_screen(fb_s,BLACK,screensize/2);
+</code></pre>
+
+<p>上面的代码是先填充红色，等待1秒，然后是绿色、蓝色，最后填充黑色（清屏）。效果如下：</p>
+<p><img alt="" src="fill_c_r.gif" /></p>
+<p><strong>详细代码</strong>：<a href="https://github.com/zhuangzuoyi/learning-STM32MP15X/blob/master/user_space/framebuffer/fb_fill_color.c">framebuffer/fb_fill_color.c</a></p>
+<h4 id="_3">显示图片<a class="headerlink" href="#_3" title="Permanent link"></a></h4>
+<p>现有的图片格式非常多，JPEG、TIFF、PNG、BMP，SVG等等，这些又分有压缩、无压缩。这里是为了学习如何操作framebuffer，就选择一种无压缩格式的格式的图片来操作。可以直接以二进制的方式读取图片数据，然后显示到屏上。比较常用的无压缩的图片是BMP，这里就选择BMP格式的图片。</p>
+<p>​   BMP格式图片数据有以下4部分组成：</p>
+<ul>
+<li>位图头文件数据结构，它包含BMP图像文件的类型、显示内容等信息；</li>
+<li>位图信息数据结构，它包含有BMP图像的宽、高、压缩方法，以及定义颜色等信息；</li>
+<li>调色板，这个部分是可选的，有些位图需要调色板，有些位图，比如真彩色图（24位的BMP）就不需要调色板；</li>
+<li>位图数据，这部分的内容根据BMP位图使用的位数不同而不同，在24位图中直接使用RGB，而其他的小于24位的使用调色板中颜色索引值。</li>
+</ul>
+<p>由以上信息可以知道24位的bmp图片，数据部分就是图片像素的数据，也就是说读取24位bmp图片的数据部分不用进行任何操作，就可以直接拿来用，所以这里选择使用24bit的BMP图片，以下是我用来测试的24bit图片中的一张图片的信息：</p>
+<p><img alt="" src="bmp_msg.png" /></p>
+<p>BMP文件的位图头跟位图信息部分占BMP图片数据的前54字节，24位BMP图片的图片数据部分就是剩下的所有数据了（第55字节开始）。要对BMP图片的位图数据进行读，还需要几个关键参数，所读的图片的宽、高。还有颜色深度（bpc）,因为选用了24位的图片，颜色深度算是已近知道了。</p>
+<h4 id="bmp">获取BMP图片信息<a class="headerlink" href="#bmp" title="Permanent link"></a></h4>
+<p>首先获取BMP图片的信息，定义个结构体：</p>
+<pre><code>typedef struct
+{   
+    uint16_t    bfType;         
+    uint32_t    bfSize;         
+    uint32_t    biWidth;                                 
+    uint32_t    biHeight;           
+    uint16_t    biBitCount;         
+}BMP_HEADER;
+</code></pre>
+
+<p>这个结构体里面的元素分别有图片类型，图片数据大小，图片的尺寸跟颜色深度。</p>
+<p>创建个获取该结构图的函数：</p>
+<pre><code>BMP_HEADER TFTBmpGetHeadInfo(uint8_t *buf)
+{
+    BMP_HEADER bmpHead;
+
+    bmpHead.bfType = (buf[0] &lt;&lt; 8) + buf[1];         
+    bmpHead.bfSize  = (buf[5]&lt;&lt;24) + (buf[4]&lt;&lt;16) + (buf[3]&lt;&lt;8) + buf[2];   
+    bmpHead.biWidth = (buf[21]&lt;&lt;24) + (buf[20]&lt;&lt;16) + (buf[19]&lt;&lt;8) + buf[18]; 
+    bmpHead.biHeight = (buf[25]&lt;&lt;24) + (buf[24]&lt;&lt;16) + (buf[23]&lt;&lt;8) + buf[22];
+    bmpHead.biBitCount = (buf[29] &lt;&lt; 8) + buf[28];  
+
+    return bmpHead;
+}
+</code></pre>
+
+<p>打开图片并读取前54字节，传给函数TFTBmpGetHeadInfo，然后判断图片格式是否为BMP，颜色深度是否为24bit，不是的话，程序不再继续运行：</p>
+<pre><code>    bmp_fd  = open(argv[1], O_RDWR);
+    if(bmp_fd &lt;0)
+    {
+        printf(&quot;open file faile\n&quot;);
+    }
+
+    if(read(bmp_fd,buffer,54) &lt;0)
+    {
+        printf(&quot;read file \&quot;%s\&quot; faile\n&quot;,argv[1]);
+        return -1;  
+    }
+
+    bmp_header = TFTBmpGetHeadInfo(buffer);
+    printf(&quot;%s's msg:\n&quot;,argv[1]);
+    printf(&quot;\ttype:%2x\n&quot;,bmp_header.bfType);
+    printf(&quot;\tsize:%d\n&quot;,bmp_header.bfSize);
+    printf(&quot;\tWidth:%d\n&quot;,bmp_header.biWidth);
+    printf(&quot;\tHeight:%d\n&quot;,bmp_header.biHeight);
+    printf(&quot;\tBitCount:%d\n&quot;,bmp_header.biBitCount);
+
+    if(bmp_header.bfType != 0x424d)
+    {
+        printf(&quot;The picture is not bmp file\n&quot;);
+        return -1;
+    }
+
+    if(bmp_header.biBitCount != 24)
+    {
+        printf(&quot;Just support 24bit bmp file\n&quot;);
+        return -1;
+    }
+</code></pre>
+
+<h4 id="_4">把图片显示到屏上<a class="headerlink" href="#_4" title="Permanent link"></a></h4>
+<p>​   我这里实现的方法是，每次读取BMP图片的一行就写到Framebuffer对应的缓存中，虽然要求read读取指定个字节，可是程序运行的时候并不是每次都能够读取所要求的字节数。所以还需要加个判断，判断每次读取的字节数是否为达到要求，没达到要求就继续读，知道达到要求为止。具体代码如下：</p>
+<pre><code>    int perline_size = bmp_header.biWidth * bmp_header.biBitCount /8;
+
+    char * readed_data = (char *)malloc(perline_size);
+    int i=0;
+    int line_count=0;
+    int read_size = perline_size;
+    int read_count=0;
+    int read_per_line=0;
+    int buf_offset=0;
+    while((ret = read(bmp_fd,readed_data+buf_offset,read_size)) !=0)
+    {
+
+            if(ret == -1)
+            {
+                if(errno == EINTR)
+                    continue;
+                perror(&quot;read&quot;);
+                break;
+            }else if(ret !=perline_size )
+            {
+                read_per_line += ret;
+                read_size = perline_size - read_per_line;
+                buf_offset = read_per_line;
+            }else 
+                read_per_line = ret;
+
+            if(read_per_line == perline_size)
+            {
+                read_size = perline_size;
+                buf_offset =0;
+
+                read_per_line = 0;
+                if(bits_per_pixel ==16)
+                {
+                    short pixl = 0;
+                    if(screan_width &gt; bmp_header.biWidth)
+                    {
+                        for(i=0;i&lt;bmp_header.biWidth;i++)
+                        {
+                            short blue = (readed_data[i*3]&gt;&gt;3) &amp; 0x001f;
+                            short green = (readed_data[i*3+1]&gt;&gt;2) &amp; 0x003f;
+                            short red =  (readed_data[i*3+2]&gt;&gt;3) &amp; 0x001f;
+
+
+                            pixl = (red &lt;&lt; 11 ) + (green &lt;&lt; 5) + blue;
+                            *fb_s = pixl;
+                            fb_s ++;
+                        }
+                        fb_s += screan_width -bmp_header.biWidth  ;
+                    }else if(screan_width &lt;= bmp_header.biWidth)
+                    {
+                        for(i=0;i&lt;screan_width;i++)
+                        {
+                            short blue = (readed_data[i*3]&gt;&gt;3) &amp; 0x001f;
+                            short green = (readed_data[i*3+1]&gt;&gt;2) &amp; 0x003f;
+                            short red =  (readed_data[i*3+2]&gt;&gt;3) &amp; 0x001f;
+
+                            pixl = (red &lt;&lt; 11 ) + (green &lt;&lt; 5) + blue;
+                            *fb_s = pixl;
+                            fb_s ++;
+                        }
+
+                    }
+                }
+            }
+            line_count++;
+            if(line_count &gt;= screan_height)
+                break;
+    }
+</code></pre>
+
+<p>这里还涉及到一个问题，由于使用的图片是24bit的，显示屏使用的却是16位的，那就需要把24bit转成16bit了，在做之前就有想过，转换的时候是取高位还是低位呢？一开始，我是取低位的，代码为：</p>
+<pre><code>short blue = (readed_data[i*3]) &amp; 0x001f;
+short green = (readed_data[i*3+1]) &amp; 0x003f;
+short red =  (readed_data[i*3+2]) &amp; 0x001f;
+
+pixl = (red &lt;&lt; 11 ) + (green &lt;&lt; 5) + blue;
+*fb_s = pixl;
+fb_s ++;
+</code></pre>
+
+<p>显示一张有红、绿、蓝色块的图片：</p>
+<p><img alt="" src="low.jpg" /></p>
+<p>红色显示有问题，正常的如下：</p>
+<p><img alt="" src="higt.jpg" /></p>
+<p>还有显示一些其他图片的：</p>
+<p><img alt="" src="ease.jpg" /></p>
+<p>显示可爱的祢豆子：</p>
+<p><img alt="" src="douzi.jpg" /></p>
+<p>最后附上一张显示图片时输出的信息：</p>
+<p><img alt="" src="show_test.png" /></p>
+<p>详细代码：<a href="https://github.com/zhuangzuoyi/learning-STM32MP15X/blob/master/user_space/framebuffer/show_bmp.c">show_bmp.c</a></p>
+<p>参考：<a href="https://www.jianshu.com/p/0ba324e9e8c1">PNG、JPEG、BMP等几种图片格式详解（三）—— BMP</a></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2014 <a href="">Halin</a>, Maintained by the <a href="www.halin.xyz">Halin</a>.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

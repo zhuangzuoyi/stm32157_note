@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>开发环境 - STM32MP15x</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/django.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-27795084-5', 'mkdocs.org');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">STM32MP15x</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">开始使用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">开发环境</a>
+</li>
+                                    
+<li >
+    <a href="../download_fw_sd/">通过USB烧录系统到SD卡</a>
+</li>
+                                    
+<li >
+    <a href="../sd/">解析SD卡</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">内核相关 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../kernel/start/">获取内核源码及编译</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">fbtft</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../kernel/fbtft/01/">什么是fbtft&在STM32MP15x中使用fbtft</a>
+</li>
+            
+<li >
+    <a href="../../kernel/fbtft/02/">使用ILI9341</a>
+</li>
+            
+<li >
+    <a href="../../kernel/fbtft/03/">在用户空间中使用framebuffer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">uboot <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../uboot/uboot_start/">环境</a>
+</li>
+                                    
+<li >
+    <a href="../../uboot/bison_not_found/">bison_not_found</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../app/u8g2/u8g2/">u8g2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../about/">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../download_fw_sd/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#_1">开发环境</a></li>
+            <li><a href="#1ubuntu">1、安装ubuntu</a></li>
+            <li><a href="#2">2、安装编译器</a></li>
+            <li><a href="#3sdk">3、使用SDK</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h4 id="_1">开发环境<a class="headerlink" href="#_1" title="Permanent link"></a></h4>
+<h5 id="1ubuntu">1、安装ubuntu<a class="headerlink" href="#1ubuntu" title="Permanent link"></a></h5>
+<p>ST官方推荐使用ubuntu 1604 64bit，可以直接安装到PC里也可以是虚拟机(参考<a href="https://wiki.st.com/stm32mpu/wiki/PC_prerequisites">PC_prerequisites</a>)。</p>
+<p>安装完系统后，还需要安装一些依赖和软件：</p>
+<pre><code>sudo apt-get update
+
+sudo apt-get install sed wget curl cvs subversion git-core coreutils unzip
+texi2html texinfo docbook-utils gawk python-pysqlite2 diffstat help2man
+make gcc build-essential g++ desktop-file-utils chrpath libxml2-utils xmlto
+docbook bsdmainutils iputils-ping cpio python-wand python-pycryptopp
+python-crypto
+
+sudo apt-get install libsdl1.2-dev xterm corkscrew nfs-common nfs-kernelserver device-tree-compiler mercurial u-boot-tools libarchive-zip-perl
+
+sudo apt-get install ncurses-dev bc linux-headers-generic gcc-multilib
+libncurses5-dev libncursesw5-dev lrzsz dos2unix lib32ncurses5 repo libssldev
+
+sudo apt-get install default-jre
+</code></pre>
+
+<h5 id="2">2、安装编译器<a class="headerlink" href="#2" title="Permanent link"></a></h5>
+<p>参考<a href="https://wiki.st.com/stm32mpu/wiki/Getting_started/STM32MP1_boards/STM32MP157x-EV1/Develop_on_Arm®_Cortex®-A7/Install_the_SDK">Install_the_SDK</a>，</p>
+<p>下载：</p>
+<blockquote>
+<p>wget https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/32/5e/0d/c9/05/87/40/c0/stm32mp1dev_yocto_sdk/files/SDK-x86_64-stm32mp1-openstlinux-4.19-thud-mp1-19-02-20.tar.xz/jcr:content/translations/en.SDK-x86_64-stm32mp1-openstlinux-4.19-thud-mp1-19-02-20.tar.xz</p>
+</blockquote>
+<p>解压：</p>
+<blockquote>
+<p><code>tar xvf en.SDK-x86_64-stm32mp1-openstlinux-4.19-thud-mp1-19-02-20.tar.xz</code></p>
+</blockquote>
+<p>修改权限：</p>
+<blockquote>
+<p><code>chmod +x stm32mp1-openstlinux-4.19-thud-mp1-19-02-20/sdk/st-image-weston-openstlinux-weston-stm32mp1-x86_64-toolchain-2.6-openstlinux-4.19-thud-mp1-19-02-20.sh</code></p>
+</blockquote>
+<p>新建个目录用做该编译器的安装目录：</p>
+<pre><code>mkdir STM32MP
+cd STM32MP
+mkdir SDK
+</code></pre>
+
+<p>安装：</p>
+<pre><code>$HOME/stm32mp1-openstlinux-4.19-thud-mp1-19-02-20/sdk/st-image-weston-openstlinux-weston-stm32mp1-x86_64-toolchain-2.6-openstlinux-4.19-thud-mp1-19-02-20.sh -d $HOME/STM32MP/SDK
+</code></pre>
+
+<h5 id="3sdk">3、使用SDK<a class="headerlink" href="#3sdk" title="Permanent link"></a></h5>
+<p>SDK的安装目录提供一个脚本文件用来设置环境变量，该脚本文件是：</p>
+<blockquote>
+<p>$HOME/STM32MP/SDK/environment-setup-cortexa7t2hf-neon-vfpv4-openstlinux_weston-linux-gnueabi</p>
+</blockquote>
+<p>看下该脚本文件中有什么内容：</p>
+<p><img alt="" src="en.png" /></p>
+<p>该文件主要就是设置一些环境变量，比如，如果你要用arm-openstlinux_weston-linux-gnueabi-gcc的话，可以使用变量<strong>CC</strong>。</p>
+<p>首先使能环境变量</p>
+<blockquote>
+<p>source  $HOME/STM32MP/SDK/environment-setup-cortexa7t2hf-neon-vfpv4-openstlinux_weston-linux-gnueabi</p>
+</blockquote>
+<p>查看下<strong>CC</strong>是什么内容：</p>
+<pre><code>hl@hl-ub:~$ echo $CC
+arm-openstlinux_weston-linux-gnueabi-gcc -march=armv7ve -mthumb -mfpu=neon-vfpv4 -mfloat-abi=hard -mcpu=cortex-a7 --sysroot=/home/ub/STM32MPU_workspace/STM32MP15-Ecosystem-v1.0.0/Developer-Package/SDK/sysroots/cortexa7t2hf-neon-vfpv4-openstlinux_weston-linux-gnueabi
+</code></pre>
+
+<p>可以看到<strong>CC</strong>指定了编译器，设置了编译选项，还指定了sysroot路劲</p>
+<p>创建一个简单的C程序，保存为helloworld.c：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(int argc,char **argv)
+{
+    printf(“Hello STM32MP1\n”);
+    return 0
+}
+</code></pre>
+
+<p>编译：</p>
+<blockquote>
+<p>$CC -o helloworld helloworld.c</p>
+</blockquote>
+<p>然后看下文件helloword信息：</p>
+<p><img alt="" src="target.png" /></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2014 <a href="">Halin</a>, Maintained by the <a href="www.halin.xyz">Halin</a>.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

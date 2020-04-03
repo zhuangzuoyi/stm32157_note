@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>通过USB烧录系统到SD卡 - STM32MP15x</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/django.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-27795084-5', 'mkdocs.org');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">STM32MP15x</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">开始使用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../env/">开发环境</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">通过USB烧录系统到SD卡</a>
+</li>
+                                    
+<li >
+    <a href="../sd/">解析SD卡</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">内核相关 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../kernel/start/">获取内核源码及编译</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">fbtft</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../kernel/fbtft/01/">什么是fbtft&在STM32MP15x中使用fbtft</a>
+</li>
+            
+<li >
+    <a href="../../kernel/fbtft/02/">使用ILI9341</a>
+</li>
+            
+<li >
+    <a href="../../kernel/fbtft/03/">在用户空间中使用framebuffer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">uboot <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../uboot/uboot_start/">环境</a>
+</li>
+                                    
+<li >
+    <a href="../../uboot/bison_not_found/">bison_not_found</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../app/u8g2/u8g2/">u8g2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../about/">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../env/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../sd/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#_1">环境：</a></li>
+        <li class="main "><a href="#_2">安装</a></li>
+            <li><a href="#1-window">1. window</a></li>
+            <li><a href="#2linux">2.Linux</a></li>
+        <li class="main "><a href="#_3">使用</a></li>
+            <li><a href="#1window">1.window</a></li>
+            <li><a href="#2linux_1">2.Linux</a></li>
+        <li class="main "><a href="#window">window 下安装驱动</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h3 id="_1">环境：<a class="headerlink" href="#_1" title="Permanent link"></a></h3>
+<ol>
+<li>
+<p>一台PC(window/linux)</p>
+</li>
+<li>
+<p><a href="https://www.st.com/en/development-tools/stm32cubeprog.html">STM32CubeProgrammer</a></p>
+</li>
+</ol>
+<p>我下载到的是2.1版本（19\07\10下载的）</p>
+<p><img alt="" src="stm32cubeprog_0.png" /></p>
+<p>里面的文件是：</p>
+<p><img alt="" src="stm32cubeprog_1.png" /></p>
+<p>里面有3个文件，分别window、Linux、Mac下的，也就是说这个软件支持3个系统</p>
+<hr/>
+
+<h3 id="_2">安装<a class="headerlink" href="#_2" title="Permanent link"></a></h3>
+<h4 id="1-window">1. window<a class="headerlink" href="#1-window" title="Permanent link"></a></h4>
+<p>windows下直接双击即可，</p>
+<h4 id="2linux">2.Linux<a class="headerlink" href="#2linux" title="Permanent link"></a></h4>
+<p>Linux下需要在命令行中执行：</p>
+<blockquote>
+<p><code>./SetupSTM32CubeProgrammer-2.0.0.linux</code></p>
+</blockquote>
+<p>然后把安装目录添加到环境变量</p>
+<hr/>
+
+<h3 id="_3">使用<a class="headerlink" href="#_3" title="Permanent link"></a></h3>
+<h5 id="1window">1.window<a class="headerlink" href="#1window" title="Permanent link"></a></h5>
+<p>我的电脑是window7 64bit，</p>
+<p><img alt="" src="win7.png" /></p>
+<p>用STM32CubeProgrammer无法搜到DFU设备，可是我的电脑是有DFU设备的：</p>
+<p><img alt="" src="stm32cubeprog_2.png" /></p>
+<p>使用命令行的话，也找不到设备：</p>
+<p>​   <img alt="" src="stm32cubeprog_3.png" /></p>
+<h4 id="2linux_1">2.Linux<a class="headerlink" href="#2linux_1" title="Permanent link"></a></h4>
+<p>把设备插到电脑上，用<strong>lsusb</strong>查看USB设备：</p>
+<p><img alt="" src="lsusb.png" /></p>
+<p>使用命令行打开：</p>
+<blockquote>
+<p>halin@halin-PC:~/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin$ sudo ./STM32CubeProgrammer</p>
+</blockquote>
+<p>由于我没有把安装目录添加到环境变量，我直接到安装目录运行，而且必须加上<strong>sudo</strong>,不然会找不到设备，打开后,连接方式选择USB，连接了设备后如下：</p>
+<p><img alt="" src="open_connect.png" /></p>
+<ul>
+<li>
+<p>打开<strong>tsv</strong>文件</p>
+<p><img alt="" src="opentsv.png" /></p>
+</li>
+<li>
+<p>打开Image文件夹</p>
+<p><img alt="" src="select_image_floder.png" /></p>
+</li>
+<li>
+<p>然后下载，下载成功后如下：</p>
+<p><img alt="" src="download_finish.png" /></p>
+</li>
+</ul>
+<p>烧录过成功，如果DK2接了LCD，LCD会显示一些文字信息：</p>
+<p><img alt="" src="lcd.jpg" /></p>
+<p>​           uart4(debug 口)也有输出一些信息：</p>
+<p>​           <img alt="" src="serial.png" /></p>
+<h3 id="window">window 下安装驱动<a class="headerlink" href="#window" title="Permanent link"></a></h3>
+<p>因为之前看到的信息是通过USB DFU下载的话，STM32MP1X是处 于DFU mode，当我把DK2插入到windnow时，出现如下设备：</p>
+<p><img alt="" src="dfu_no.png" /></p>
+<p>我以为就是对的，可是STM32CubeProgrammer无法连接该设备，后来认真看了下文档（<a href="https://wiki.st.com/stm32mpu/wiki/STM32CubeProgrammer">How to proceed when the DFU driver installation fails on Windows host PC</a>），才知道需要另外的驱动，</p>
+<p>首先把原来的驱动删了，然后到STM32CubeProgrammer的安装目录下的<strong>Drivers\DFU_Driver</strong>，我电脑是：</p>
+<blockquote>
+<p>C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\Drivers\DFU_Driver</p>
+</blockquote>
+<p>里面有个文件：<strong>STM32Bootloader.bat</strong>，双击打开就可以安装对应的驱动了，安装完后出现如下设备：</p>
+<p><img alt="" src="STM32_Bootloader.png" /></p>
+<p>就可以在window下通过STM32CubeProgrammer给STM32MP15X下载固件了</p>
+<p>参考：</p>
+<p><a href="https://www.st.com/content/ccc/resource/technical/document/user_manual/group0/76/3e/bd/0d/cf/4d/45/25/DM00403500/files/DM00403500.pdf/jcr:content/translations/en.DM00403500.pdf">STM32CubeProgrammer software description </a></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2014 <a href="">Halin</a>, Maintained by the <a href="www.halin.xyz">Halin</a>.</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
